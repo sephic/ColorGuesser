@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// converter from hex to rbga since it's how UIColor works
 extension UIColor {
     public convenience init?(hex: String) {
         let r, g, b, a: CGFloat
@@ -51,7 +52,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     func randomColor() -> String {
-      let letters = "abcdef0123456789"
+      //generates a random color using hex characters stored on the string letters
+        let letters = "abcdef0123456789"
       let color = String((0..<6).map{ _ in letters.randomElement()! })
         return "#\(color)ff"
     }
@@ -59,13 +61,13 @@ class ViewController: UIViewController {
     var guessedColor = ""
     //Start game function
     @IBAction func startGame(_ sender: Any) {
-        // Declare the color to guess and paint the background of the main button of the color to guess
+        // Declare the color to guess
         guessedColor = randomColor()
         colorToGuess.setTitle("Reset", for: .normal)
         picked.text = guessedColor
         // random number to pick the random button to win
         let randomButton = Int.random(in: 0...6)
-        // if and elses to make sure one of the buttons has the color to guess
+        // if and elses to make sure one of the buttons has the color to guess, and the rest are random colors
         if randomButton == 1 {
             let c1 = guessedColor
             b1.backgroundColor = UIColor(hex: c1)
@@ -147,8 +149,9 @@ class ViewController: UIViewController {
         }
                 
     }
-    
+    // actions to compare the user guess with the colors, change the color to red if wrong
     @IBAction func b1A(_ sender: Any) {
+        
         if b1.backgroundColor == UIColor(hex: guessedColor ) {
             resultsLabel.text = "You win"
             resultsLabel.backgroundColor = UIColor(hex: "#00ff00ff")
